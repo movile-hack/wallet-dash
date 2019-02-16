@@ -17,16 +17,10 @@
 .productInfo {
   width: 40%;
 }
-.offPrice {
-  color: red;
-  font-weight: normal;
-  font-size: .8em;
-}
 .price {
   text-align: right;
 }
 .wrapperButton {
   margin-top: 20px;
   text-align: right;
-  /* background: #000; */
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon, Slider, Button } from 'antd'
+import { Slider, Button } from 'antd'
 import PropTypes from 'prop-types'
 
 import ModalCustom from '../../../components/Modal'
@@ -19,41 +19,40 @@ class DetailProduct extends Component {
   render() { 
     const { 
       product,
-      productPriceOff,
-      quantityClients,
       visible,
       onClick,
+      rangeSummary,
+      priceSelected,
     } = this.props
     const {
       name,
       description,
-      price,
       imagePath,
     } = product
+    const filterRange = range => range.value >= priceSelected
+    const quantityProducts = rangeSummary.find(filterRange)
     return (
       <div className="wrapperProductDetail">
         <div className="productInfo">
           <h1>{name}</h1>
           <p>{description}</p>
           <div className="informationClients">
-            <h3><Icon type="user" /> {quantityClients} x Pessoas</h3>
+            <h3>{quantityProducts.customers} x un</h3>
             <h3 className="price">
-              R$ {quantityClients * (price-productPriceOff)},00
-              <span className="offPrice">
-              <br />
-                Desconto de
-                { 
-                  productPriceOff === 0 ? ' R$ 0,00' : 
-                  <strong> -R$ {quantityClients*productPriceOff},00</strong>
-                }
-              </span>
+              R$ {
+                  quantityProducts.customers * 
+                  (
+                    priceSelected === 0 ? 
+                    rangeSummary[0].value : 
+                    priceSelected
+                  )
+                },00
             </h3>
           </div>
           <Slider 
-            tooltipVisible={false}
             type="primary"
-            defaultValue={productPriceOff}
-            max={(price/4)}
+            min={rangeSummary[0].value}
+            max={rangeSummary[rangeSummary.length -1].value}
             onChange={this.onChange}
           />
           <div className="wrapperButton">
@@ -84,10 +83,10 @@ class DetailProduct extends Component {
 DetailProduct.propTypes = {
   onChange: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
-  quantityClients: PropTypes.number.isRequired,
-  productPriceOff: PropTypes.number.isRequired,
   visible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  rangeSummary: PropTypes.array.isRequired,
+  priceSelected: PropTypes.number.isRequired,
 }
 
 export default DetailProduct
