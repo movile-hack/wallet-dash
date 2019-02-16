@@ -28,6 +28,10 @@ class Detail extends Component {
     ]
   }
 
+  componentDidMount() {
+    console.log(this.props.match.params.id)
+  }
+
   onChange = (priceSelected) => {
     this.setState({ priceSelected })
   }
