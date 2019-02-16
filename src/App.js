@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import Product from './pages/Product'
 
 const { Header, Sider, Content } = Layout
@@ -29,8 +29,10 @@ class App extends Component {
           <h1 style={{ color: 'white' }}>Boa compra</h1>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
-              <Icon type="dollar" />
-              <span>Negócios</span>
+              <Link to="/product/list">
+                <Icon type="dollar" />
+                <span>Negócios</span>
+              </Link> 
             </Menu.Item>
             <Menu.Item key="2">
               <Icon type="bars" />
@@ -52,6 +54,7 @@ class App extends Component {
           >
           <Switch>
             <Route path="/product" component={Product} />
+            <Redirect to="/product" />
           </Switch>
           </Content>
         </Layout>
