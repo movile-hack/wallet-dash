@@ -18,6 +18,8 @@ class ModalCustom extends Component {
         visible={visible}
         onOk={() => handleConfirmation('sale')}
         onCancel={handleConfirmation}
+        okText="Sim"
+        cancelText="Não"
       >
         <div className="modalContentWrapper">
           <img className="iconImage" src={warning} alt="alert" title="warning" />

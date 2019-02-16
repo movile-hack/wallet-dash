@@ -10,13 +10,26 @@ class Detail extends Component {
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, natus delectus sit reiciendis amet commodi ab dignissimos placeat explicabo sed!",
       imagePath: 'ps4',
     },
-    quantityClients: 3,
-    productPriceOff: 0,
+    priceSelected: 0,
     visible: false,
+    summary: [
+      {
+        value: 2400,
+        customers: 1
+      },
+      {
+        value: 1980,
+        customers: 2
+      },
+      {
+        value: 1650,
+        customers: 3
+      }
+    ]
   }
 
-  onChange = (productPriceOff) => {
-    this.setState({ productPriceOff })
+  onChange = (priceSelected) => {
+    this.setState({ priceSelected })
   }
 
   handleConfirmation = (type = null) => {
@@ -34,21 +47,27 @@ class Detail extends Component {
     console.log('venda efetuada com sucesso!')
   }
 
-  render() { 
+  render() {
     const {
       product,
-      quantityClients,
-      productPriceOff,
+      
+      priceSelected,
       visible,
+      summary,
     } = this.state
+    
+    const rangeSummary = summary.sort(
+      (a, b) => a.value > b.value ? 1 : -1
+    )
+
     return (
       <DetailProductContainer
         product={product}
+        priceSelected={priceSelected}
         onClick={this.handleConfirmation}
-        quantityClients={quantityClients}
-        productPriceOff={productPriceOff}
         onChange={this.onChange}
         visible={visible}
+        rangeSummary={rangeSummary}
       />
     )
   }
