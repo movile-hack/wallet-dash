@@ -60,12 +60,6 @@ class DetailProduct extends Component {
             <Button size='large' onClick={onClick}>
               Vender
             </Button>
-            {/* <Button 
-              size='large' 
-              type="primary"
-            >
-              Simular
-            </Button> */}
           </div>
         </div>
         <div className="wrapperImage">
