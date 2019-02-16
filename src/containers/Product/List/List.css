@@ -1,0 +1,15 @@
+.product-card {
+  margin-right: 20px;
+}
+
+.product-card img {
+  padding-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.ant-card-cover {
+  height: 200px;
+}
