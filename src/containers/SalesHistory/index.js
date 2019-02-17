@@ -3,7 +3,6 @@ import './index.css'
 
 import { Icon } from 'antd'
 
-import shop from '../../assets/icons/online-shop.svg'
 import notes from '../../assets/icons/notes.svg'
 import wallet from '../../assets/icons/wallet.svg'
 
