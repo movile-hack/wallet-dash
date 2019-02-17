@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { Slider, Button } from 'antd'
 import PropTypes from 'prop-types'
+import { 
+  PlaystationImg, 
+  IphoneImg, 
+  MacbookImg,
+} from '../../../assets/products'
+
 
 import ModalCustom from '../../../components/Modal'
 
 import './index.css'
 
-import ps4 from '../../../assets/products/ps4.jpg'
 class DetailProduct extends Component {
 
   productsImage = {
-    ps4,
+    PlaystationImg, 
+    IphoneImg, 
+    MacbookImg,
   }
   onChange = (value) => {
     this.props.onChange(value)
@@ -64,9 +71,9 @@ class DetailProduct extends Component {
         <div className="wrapperImage">
           <img 
             className="productImage" 
-            src={this.productsImage[imagePath]} 
+            src={this.productsImage['MacbookImg']} 
             alt="game" 
-            title="ps4"
+            title={name}
           />
         </div>
         <ModalCustom 

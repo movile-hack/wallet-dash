@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
-
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import Product from './pages/Product'
+
+import './App.css'
 
 const { Header, Sider, Content } = Layout
 
@@ -25,8 +26,10 @@ class App extends Component {
           collapsible
           collapsed={this.state.collapsed}
         >
-          {/* <div className="logo" /> */}
-          <h1 style={{ color: 'white' }}>Boa compra</h1>
+          <h1 style={{ color: 'white' }}>
+            <span className="firstNameLogo">Boa</span>
+            <span className="secondNameLogo">Compra</span>
+          </h1>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
               <Link to="/product/list">
