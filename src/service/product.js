@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://1b2e65ad.ngrok.io/products'
+const url = 'https://vesica.serveo.net/products'
 class ProductService {
 
   getAllProducts() {
