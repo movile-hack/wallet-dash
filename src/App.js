@@ -47,8 +47,6 @@ class App extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }}>
-          </Header>
           <Content style={{
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
           }}
