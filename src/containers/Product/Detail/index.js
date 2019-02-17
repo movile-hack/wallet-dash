@@ -32,15 +32,10 @@ class DetailProduct extends Component {
   renderChart = () => {
     return (
       <AreaChart
-        width={450}
+        width={600}
         height={250}
         data={this.formattedData()}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0
-        }}
+        style={{ marginLeft: "-45px" }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -97,6 +92,7 @@ class DetailProduct extends Component {
           </div>
         </Col>
         <Col span={12}>
+          <h3>Produtos x Preço</h3>
           <Chart />
           <Slider />
           <div
