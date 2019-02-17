@@ -13,9 +13,16 @@ class Detail extends Component {
 
   componentWillMount() {
     this.productService = new ProductService()
+    this.handleGetById()
+  }
+
+  handleGetById = async () => {
+    const { id } = this.props.match.param
     try {
-      this.productService.getById(this.props.match.params.id).then(data => {
-        this.setState({ data, priceSelected: data.summary.averageValue })
+      const data = await this.productService.getById(id)
+      this.setState({ 
+        data, 
+        priceSelected: data.summary.averageValue,
       })
     } catch (error) {
       console.log(error)
@@ -43,8 +50,9 @@ class Detail extends Component {
   renderDetail = () => {
     const { data, visible, priceSelected } = this.state
     const { product, report, summary } = data
-    console.log(data)
-    const orderedReport = report.sort((a, b) => (a.value > b.value ? 1 : -1))
+    const orderedReport = report.sort(
+      (a, b) => (a.value > b.value ? 1 : -1)
+    )
     return (
       <DetailProductContainer
         product={product}
