@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import Product from './pages/Product'
+import SalesHistory from './pages/History'
 
 import './App.css'
 
@@ -38,8 +39,10 @@ class App extends Component {
               </Link> 
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="bars" />
-              <span>Histórico</span>
+              <Link to="/sales-history">
+                <Icon type="bars" />
+                <span>Histórico</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -52,7 +55,8 @@ class App extends Component {
           >
           <Switch>
             <Route path="/product" component={Product} />
-            <Redirect to="/product" />
+            <Route exact path="/sales-history" component={SalesHistory} />
+            <Redirect to="/sales-history" />
           </Switch>
           </Content>
         </Layout>
