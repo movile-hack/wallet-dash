@@ -12,12 +12,13 @@ class ModalCustom extends Component {
       content,
       visible,
       handleConfirmation,
+      handleModal
     } = this.props 
     return (
       <Modal
         visible={visible}
-        onOk={() => handleConfirmation('sale')}
-        onCancel={handleConfirmation}
+        onOk={() => handleConfirmation()}
+        onCancel={() => handleModal()}
         okText="Sim"
         cancelText="Não"
       >
@@ -36,6 +37,7 @@ ModalCustom.propTypes = {
   content: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   handleConfirmation: PropTypes.func.isRequired,
+  handleModal: PropTypes.func.isRequired,
 }
 
 export default ModalCustom

@@ -35,16 +35,24 @@ class Detail extends Component {
     })
   }
 
-  handleConfirmation = (type = null) => {
-    const visible = !this.state.visible
-    if (type === 'sale') {
-      return this.setState({ visible }, () => this.handleSale())
+  handleSellConfirmation = async (value) => {
+    const { id } = this.props.match.params
+    try {
+      await this.productService.sell(id, value)
+      this.handleModal();
+      window.location.reload();
+    } catch (error) {
+      console.log(error)
     }
-    return this.setState({ visible })
   }
 
   handleSale = () => {
     console.log('venda efetuada com sucesso!')
+  }
+
+  handleModal = () => {
+    const visible = !this.state.visible
+    return this.setState({ visible });
   }
 
   renderDetail = () => {
@@ -57,7 +65,8 @@ class Detail extends Component {
       <DetailProductContainer
         product={product}
         priceSelected={priceSelected}
-        onClick={this.handleConfirmation}
+        handleSellConfirmation={this.handleSellConfirmation}
+        handleModal={this.handleModal}
         onChange={this.onChange}
         visible={visible}
         summary={summary}

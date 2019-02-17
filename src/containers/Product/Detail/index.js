@@ -35,7 +35,7 @@ class DetailProduct extends Component {
         width={600}
         height={250}
         data={this.formattedData()}
-        style={{ marginLeft: "-45px" }}
+        style={{ marginLeft: '-45px' }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -74,7 +74,14 @@ class DetailProduct extends Component {
   }
 
   render() {
-    const { product, visible, onClick, report, priceSelected } = this.props
+    const {
+      product,
+      visible,
+      handleModal,
+      report,
+      priceSelected,
+      handleSellConfirmation,
+    } = this.props
     const Chart = this.renderChart
     const Slider = this.renderSlider
     const { name, description, image } = product
@@ -83,7 +90,7 @@ class DetailProduct extends Component {
     return (
       <Row>
         <Col span={10} style={{ paddingRight: '20px' }}>
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: '20px' }}>
             <h1>{name}</h1>
             <p>{description}</p>
           </div>
@@ -116,7 +123,7 @@ class DetailProduct extends Component {
               />
             </div>
             <div>
-              <Button type="primary" size="large" onClick={onClick}>
+              <Button type="primary" size="large" onClick={handleModal}>
                 Vender
               </Button>
             </div>
@@ -129,7 +136,8 @@ class DetailProduct extends Component {
               2
             )} cada. Essa operação é irreversivel, deseja continuar?`}
             visible={visible}
-            handleConfirmation={onClick}
+            handleConfirmation={() => handleSellConfirmation(priceSelected)}
+            handleModal={handleModal}
           />
         </Col>
       </Row>
@@ -141,9 +149,10 @@ DetailProduct.propTypes = {
   onChange: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
   visible: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
   report: PropTypes.array.isRequired,
-  priceSelected: PropTypes.number.isRequired
+  priceSelected: PropTypes.number.isRequired,
+  handleSellConfirmation: PropTypes.func.isRequired,
+  handleModal: PropTypes.func.isRequired
 }
 
 export default DetailProduct
