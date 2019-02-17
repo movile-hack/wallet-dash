@@ -7,7 +7,7 @@ import './List.css'
 const { Meta } = Card
 
 const renderProduct = product => (
-  <Col key={product.id} span={8}>
+  <Col key={product.id} span={8} style={{ marginBottom: "20px" }}>
     <Link to={`/product/${product.id}`}>
       <Card
         hoverable

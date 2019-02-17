@@ -1,37 +1,31 @@
 import React, { Component } from 'react'
 import DetailProductContainer from '../../../containers/Product/Detail'
 import ProductService from '../../../service/product'
+import Loading from '../../../components/Loader'
 
 class Detail extends Component {
   productService = null
   state = {
-    product: null,
+    data: null,
     visible: false,
-    summary: [
-      {
-        value: 2400,
-        customers: 1
-      },
-      {
-        value: 1980,
-        customers: 2
-      },
-      {
-        value: 1650,
-        customers: 3
-      }
-    ],
     priceSelected: 0
   }
 
   componentWillMount() {
     this.productService = new ProductService()
-    const product = this.productService.getById(this.props.match.params.id)
-    this.setState({ product })
+    try {
+      this.productService.getById(this.props.match.params.id).then(data => {
+        this.setState({ data, priceSelected: data.summary.averageValue })
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onChange = priceSelected => {
-    this.setState({ priceSelected })
+    this.setState({
+      priceSelected
+    })
   }
 
   handleConfirmation = (type = null) => {
@@ -46,11 +40,11 @@ class Detail extends Component {
     console.log('venda efetuada com sucesso!')
   }
 
-  render() {
-    const { product, priceSelected, visible, summary } = this.state
-
-    const rangeSummary = summary.sort((a, b) => (a.value > b.value ? 1 : -1))
-
+  renderDetail = () => {
+    const { data, visible, priceSelected } = this.state
+    const { product, report, summary } = data
+    console.log(data)
+    const orderedReport = report.sort((a, b) => (a.value > b.value ? 1 : -1))
     return (
       <DetailProductContainer
         product={product}
@@ -58,9 +52,15 @@ class Detail extends Component {
         onClick={this.handleConfirmation}
         onChange={this.onChange}
         visible={visible}
-        rangeSummary={rangeSummary}
+        summary={summary}
+        report={orderedReport}
       />
     )
+  }
+
+  render() {
+    const { data } = this.state
+    return data ? this.renderDetail() : <Loading />
   }
 }
 

@@ -1,62 +1,72 @@
 import React, { Component } from 'react'
 import { Slider, Button } from 'antd'
 import PropTypes from 'prop-types'
-import { AreaChart, Area } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import ModalCustom from '../../../components/Modal'
 import NumberIcon from '../List/NumberIcon'
 
 import './index.css'
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000
-  },
-  {
-    name: 'Page B',
-    uv: 3000
-  },
-  {
-    name: 'Page C',
-    uv: 2000
-  },
-  {
-    name: 'Page D',
-    uv: 1000
-  },
-  {
-    name: 'Page E',
-    uv: 500
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active) {
+    return (
+      <div className="custom-tooltip">
+        <NumberIcon
+          icon="dollar"
+          value={label}
+          money={true}
+        />
+        <NumberIcon
+          icon="shopping-cart"
+          value={payload[0].value}
+        />
+      </div>
+    )
   }
-]
 
+  return null
+}
 class DetailProduct extends Component {
   onChange = value => {
     this.props.onChange(value)
   }
 
+  formattedData = () => {
+    const { report } = this.props
+    return report.map(item => ({ name: item.value, produtos: item.customers }))
+  }
+
   renderChart = () => {
     return (
       <AreaChart
-        width={460}
-        height={60}
-        data={data}
+        width={450}
+        height={250}
+        data={this.formattedData()}
         margin={{
-          top: 5,
-          right: 0,
+          top: 10,
+          right: 30,
           left: 0,
-          bottom: 5
+          bottom: 0
         }}
       >
-        <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip content={<CustomTooltip />} />
+        <Area
+          type="monotone"
+          dataKey="produtos"
+          stroke="#8884d8"
+          fill="#8884d8"
+        />
       </AreaChart>
     )
   }
 
   renderSlider = () => {
-    const { rangeSummary } = this.props
-    const minValue = rangeSummary[0].value
-    const maxValue = rangeSummary[rangeSummary.length - 1].value
+    const { report, priceSelected } = this.props
+    const minValue = report[0].value
+    const maxValue = report[report.length - 1].value
 
     const marks = {
       [minValue]: minValue,
@@ -66,6 +76,7 @@ class DetailProduct extends Component {
     return (
       <Slider
         type="primary"
+        value={priceSelected}
         min={minValue}
         max={maxValue}
         onChange={this.onChange}
@@ -75,18 +86,12 @@ class DetailProduct extends Component {
   }
 
   render() {
-    const {
-      product,
-      visible,
-      onClick,
-      rangeSummary,
-      priceSelected
-    } = this.props
+    const { product, visible, onClick, report, priceSelected } = this.props
     const Chart = this.renderChart
     const Slider = this.renderSlider
     const { name, description, image } = product
     const filterRange = range => range.value >= priceSelected
-    const quantityProducts = rangeSummary.find(filterRange)
+    const quantityProducts = report.find(filterRange)
     return (
       <div className="wrapperProductDetail">
         <div className="productInfo">
@@ -110,10 +115,7 @@ class DetailProduct extends Component {
               />
               <NumberIcon
                 icon="dollar"
-                value={
-                  quantityProducts.customers *
-                  (priceSelected === 0 ? rangeSummary[0].value : priceSelected)
-                }
+                value={quantityProducts.customers * priceSelected}
                 money={true}
               />
             </div>
@@ -143,7 +145,7 @@ DetailProduct.propTypes = {
   product: PropTypes.object.isRequired,
   visible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  rangeSummary: PropTypes.array.isRequired,
+  report: PropTypes.array.isRequired,
   priceSelected: PropTypes.number.isRequired
 }
 
