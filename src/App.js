@@ -6,7 +6,7 @@ import SalesHistory from './pages/History'
 
 import './App.css'
 
-const { Header, Sider, Content } = Layout
+const { Sider, Content } = Layout
 
 class App extends Component {
   state = {
