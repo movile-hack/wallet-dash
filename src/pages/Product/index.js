@@ -6,7 +6,7 @@ import List from './List'
 const Product = () => (
   <Switch>
     <Route path="/product/list" component={List} />
-    <Route exact path="/product/:id/:product" component={Detail} />
+    <Route exact path="/product/:id" component={Detail} />
     <Redirect to="/product/list"/>
   </Switch>
 )

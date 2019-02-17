@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import DetailProductContainer from '../../../containers/Product/Detail'
+import ProductService from '../../../service/product'
 
 class Detail extends Component {
-  state = { 
-    product: {
-      id: 1,
-      price: 1440,
-      name: 'PlayStation 4 Sony 2 console',
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, natus delectus sit reiciendis amet commodi ab dignissimos placeat explicabo sed!",
-      imagePath: 'ps4',
-    },
-    priceSelected: 0,
+  productService = null
+  state = {
+    product: null,
     visible: false,
     summary: [
       {
@@ -25,24 +20,24 @@ class Detail extends Component {
         value: 1650,
         customers: 3
       }
-    ]
+    ],
+    priceSelected: 0
   }
 
-  componentDidMount() {
-    console.log(JSON.stringify(this.props.match.params.product))
+  componentWillMount() {
+    this.productService = new ProductService()
+    const product = this.productService.getById(this.props.match.params.id)
+    this.setState({ product })
   }
 
-  onChange = (priceSelected) => {
+  onChange = priceSelected => {
     this.setState({ priceSelected })
   }
 
   handleConfirmation = (type = null) => {
     const visible = !this.state.visible
-    if(type === 'sale') {
-      return this.setState(
-        { visible },
-        () => this.handleSale()
-      )
+    if (type === 'sale') {
+      return this.setState({ visible }, () => this.handleSale())
     }
     return this.setState({ visible })
   }
@@ -52,17 +47,9 @@ class Detail extends Component {
   }
 
   render() {
-    const {
-      product,
-      
-      priceSelected,
-      visible,
-      summary,
-    } = this.state
-    
-    const rangeSummary = summary.sort(
-      (a, b) => a.value > b.value ? 1 : -1
-    )
+    const { product, priceSelected, visible, summary } = this.state
+
+    const rangeSummary = summary.sort((a, b) => (a.value > b.value ? 1 : -1))
 
     return (
       <DetailProductContainer
@@ -76,5 +63,5 @@ class Detail extends Component {
     )
   }
 }
- 
+
 export default Detail
