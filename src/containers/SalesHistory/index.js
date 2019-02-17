@@ -1,71 +1,60 @@
 import React from 'react'
 import './index.css'
 
+import PropTypes from 'prop-types'
+
+
 import { Icon } from 'antd'
-
 import notes from '../../assets/icons/notes.svg'
-import wallet from '../../assets/icons/wallet.svg'
 
-const transactions = [
-  {
-    id:1,
-    description: 'Pagamento Dinheiro',
-    date: '4 de Janeiro',
-    value: 500,
-    image: notes,
-    type: 'paid',
-  },
-  {
-    id: 2,
-    description: 'Carteira Pessoal',
-    date: '10 de Janeiro',
-    value: 200,
-    image: wallet,
-    type: 'return',
-  },
-  {
-    id: 4,
-    description: 'Estorno Dinheiro',
-    date: '19 de Janeiro',
-    value: 500,
-    image: notes,
-    type: 'return',
-  },
-  {
-    id: 3,
-    description: 'Carteira Pessoal',
-    date: '23 de Janeiro',
-    value: 125,
-    image: wallet,
-    type: 'paid',
-  },
+const monthYear = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro',
 ]
 
+const parseDate = date => {
+  const dateFormatted = {
+    dd: new Date(date).getDate(),
+    MM: new Date(date).getMonth(),
+    YYYY: new Date(date).getFullYear(),
+  }
+  return `${dateFormatted.dd} de ${monthYear[dateFormatted.MM + 1]} ${dateFormatted.YYYY}`
+}
 const handleTransaction = transaction => (
   <div key={transaction.id} className="card-history">
     <div className="transactionCard">
       <div className="cardImage">
-        <img className="iconHistory" src={transaction.image} alt="cartao" title="visa"/>
+        <img className="iconHistory" src={notes} alt="cartao" title="visa"/>
       </div>
       <div className="transactionPeriod">
         <h3>{transaction.description}</h3>
-        <p>{transaction.date}</p>
+        <p>{parseDate(transaction.date)}</p>
       </div>
     </div>
     <div className="transactionValue">
       <h3>
         {
-          transaction.type === 'paid' ? 
-          <Icon className="iconSuccess" type="arrow-up" /> :
-          <Icon className="iconFalied" type="arrow-down" /> 
+          transaction.type === 'transfer' && Number(transaction.value) < 0 ? 
+          <Icon className="iconFalied" type="arrow-down" /> :
+          <Icon className="iconSuccess" type="arrow-up" /> 
         }
-          R$ {transaction.value},00
+          R$ {transaction.value}
         </h3>
     </div>
   </div>
 )
 
-const SalesHistory = () => (
+const SalesHistory = ({ transactions }) => (
   <div className="salesHistoryWrapper">
     <div className="salesHistoryHeader">
       <div className="info bd-right">
@@ -89,5 +78,9 @@ const SalesHistory = () => (
     </div>
   </div>
 )
+
+SalesHistory.propTypes = {
+  transactions: PropTypes.array.isRequired,
+}
 
 export default SalesHistory
