@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import Product from './pages/Product'
+import SalesHistory from './pages/History'
 
 import './App.css'
 
@@ -30,7 +31,7 @@ class App extends Component {
             <span className="firstNameLogo">Boa</span>
             <span className="secondNameLogo">Compra</span>
           </h1>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" >
             <Menu.Item key="1">
               <Link to="/product/list">
                 <Icon type="dollar" />
@@ -38,8 +39,10 @@ class App extends Component {
               </Link> 
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="bars" />
-              <span>Histórico</span>
+              <Link to="/sales-history">
+                <Icon type="bars" />
+                <span>Histórico</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -51,8 +54,9 @@ class App extends Component {
           }}
           >
           <Switch>
+            <Route exact path="/sales-history" component={SalesHistory} />
             <Route path="/product" component={Product} />
-            <Redirect to="/product" />
+            <Redirect to="/sales-history" />
           </Switch>
           </Content>
         </Layout>

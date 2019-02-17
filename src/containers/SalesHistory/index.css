@@ -1,0 +1,69 @@
+.salesHistoryHeader {
+  display: flex;
+  justify-content: space-around;
+}
+.info {
+  text-align: center;
+  width: 50%;
+}
+.bd-right {
+  border-right: 1px solid rgb(211, 211, 211);
+}
+.salesHistoryBody {
+  margin: 40px 0 0 0;
+}
+.salesHistoryTabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  color: #666;
+}
+.tab {
+  cursor: pointer;
+}
+.tab:hover {
+  color: #0085FF;
+}
+.card-history {
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  min-height: 80px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  padding: 0 20px;
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+.transactionCard {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.cardImage {
+  margin-right: 14px;
+}
+.iconHistory {
+  width: 45px;
+}
+.transactionPeriod, h3 , p {
+  margin: 0;
+}
+.actived {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #333;
+}
+.card-history:hover  {
+  border-color: #0085FF;
+}
+.iconSuccess {
+  color: #0EC454;
+}
+.iconFalied {
+  color: #FD0000;
+}
