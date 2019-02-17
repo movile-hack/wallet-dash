@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { Slider, Button } from 'antd'
 import PropTypes from 'prop-types'
-import { 
-  PlaystationImg, 
-  IphoneImg, 
-  MacbookImg,
-} from '../../../assets/products'
-
 
 import ModalCustom from '../../../components/Modal'
 
@@ -14,11 +8,6 @@ import './index.css'
 
 class DetailProduct extends Component {
 
-  productsImage = {
-    PlaystationImg, 
-    IphoneImg, 
-    MacbookImg,
-  }
   onChange = (value) => {
     this.props.onChange(value)
   }
@@ -34,7 +23,7 @@ class DetailProduct extends Component {
     const {
       name,
       description,
-      imagePath,
+      image,
     } = product
     const filterRange = range => range.value >= priceSelected
     const quantityProducts = rangeSummary.find(filterRange)
@@ -71,7 +60,7 @@ class DetailProduct extends Component {
         <div className="wrapperImage">
           <img 
             className="productImage" 
-            src={this.productsImage['MacbookImg']} 
+            src={image} 
             alt="game" 
             title={name}
           />

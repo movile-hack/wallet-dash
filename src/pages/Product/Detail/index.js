@@ -29,7 +29,7 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.id)
+    console.log(JSON.stringify(this.props.match.params.product))
   }
 
   onChange = (priceSelected) => {

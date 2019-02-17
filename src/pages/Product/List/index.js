@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import ListProductContainer from '../../../containers/Product/List'
 import ProductService from '../../../service/product'
 
-import productMocks from './productsMock'
-
 class List extends Component {
   productService = null
   state = {
-    products: productMocks
+    products: []
   }
 
   componentDidMount() {
@@ -16,9 +14,13 @@ class List extends Component {
   }
 
   async handleProductList() {
-    const response = await this.productService.getAllProducts()
-    // this.setState({ products })
-    console.log(response)
+   try {
+    // const { data: products } = await this.productService.getAllProducts()
+    const products =  this.productService.getAllProducts()
+    this.setState({ products })
+   } catch (error) {
+     console.log(error)
+   }
   }
   render() { 
     const { products } = this.state;
