@@ -15,8 +15,8 @@ Para executar o projetos clone os repositórios que estão dentro da organizaç�
 
 # Autores
 
-**André Perez** - Cientista de dados
-**Alexandre Batistella Bellas** - Mobile
-**Alexandre dos Santos Soares** - Front-end
-**Caio Flores** - Produto e Front-end
-**Rafael Girolineto** - Back-end
+- **André Perez** - Cientista de dados
+- **Alexandre Batistella Bellas** - Mobile
+- **Alexandre dos Santos Soares** - Front-end
+- **Caio Flores** - Produto e Front-end
+- **Rafael Girolineto** - Back-end
