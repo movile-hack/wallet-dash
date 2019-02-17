@@ -17,7 +17,7 @@ class Detail extends Component {
   }
 
   handleGetById = async () => {
-    const { id } = this.props.match.param
+    const { id } = this.props.match.params
     try {
       const data = await this.productService.getById(id)
       this.setState({ 
