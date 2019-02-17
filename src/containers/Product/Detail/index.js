@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Slider, Button } from 'antd'
+import { Slider, Button, Col, Row } from 'antd'
 import PropTypes from 'prop-types'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import ModalCustom from '../../../components/Modal'
@@ -11,15 +11,8 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (active) {
     return (
       <div className="custom-tooltip">
-        <NumberIcon
-          icon="dollar"
-          value={label}
-          money={true}
-        />
-        <NumberIcon
-          icon="shopping-cart"
-          value={payload[0].value}
-        />
+        <NumberIcon icon="dollar" value={label} money={true} />
+        <NumberIcon icon="shopping-cart" value={payload[0].value} />
       </div>
     )
   }
@@ -93,10 +86,17 @@ class DetailProduct extends Component {
     const filterRange = range => range.value >= priceSelected
     const quantityProducts = report.find(filterRange)
     return (
-      <div className="wrapperProductDetail">
-        <div className="productInfo">
-          <h1>{name}</h1>
-          <p>{description}</p>
+      <Row>
+        <Col span={10} style={{ paddingRight: '20px' }}>
+          <div style={{ marginBottom: "20px" }}>
+            <h1>{name}</h1>
+            <p>{description}</p>
+          </div>
+          <div className="wrapperImage">
+            <img className="productImage" src={image} alt="game" title={name} />
+          </div>
+        </Col>
+        <Col span={12}>
           <Chart />
           <Slider />
           <div
@@ -120,22 +120,23 @@ class DetailProduct extends Component {
               />
             </div>
             <div>
-              <Button size="large" onClick={onClick}>
+              <Button type="primary" size="large" onClick={onClick}>
                 Vender
               </Button>
             </div>
           </div>
-        </div>
-        <div className="wrapperImage">
-          <img className="productImage" src={image} alt="game" title={name} />
-        </div>
-        <ModalCustom
-          title="Confirmar venda"
-          content="Essa operação é irreversivel, deseja continuar?"
-          visible={visible}
-          handleConfirmation={onClick}
-        />
-      </div>
+          <ModalCustom
+            title="Confirmar venda"
+            content={`Você vai vender ${quantityProducts.customers} ${
+              product.name
+            } por R$ ${priceSelected.toFixed(
+              2
+            )} cada. Essa operação é irreversivel, deseja continuar?`}
+            visible={visible}
+            handleConfirmation={onClick}
+          />
+        </Col>
+      </Row>
     )
   }
 }
