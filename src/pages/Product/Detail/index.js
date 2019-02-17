@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import DetailProductContainer from '../../../containers/Product/Detail'
 import ProductService from '../../../service/product'
 import Loading from '../../../components/Loader'
+import { message } from 'antd'
+import { Redirect } from 'react-router'
 
 class Detail extends Component {
   productService = null
   state = {
     data: null,
     visible: false,
-    priceSelected: 0
+    priceSelected: 0,
+    redirect: false
   }
 
   componentWillMount() {
@@ -20,9 +23,9 @@ class Detail extends Component {
     const { id } = this.props.match.params
     try {
       const data = await this.productService.getById(id)
-      this.setState({ 
-        data, 
-        priceSelected: data.summary.averageValue,
+      this.setState({
+        data,
+        priceSelected: data.summary.averageValue
       })
     } catch (error) {
       console.log(error)
@@ -35,43 +38,47 @@ class Detail extends Component {
     })
   }
 
-  handleSellConfirmation = async (value) => {
+  handleSellConfirmation = async value => {
     const { id } = this.props.match.params
     try {
       await this.productService.sell(id, value)
-      this.handleModal();
-      window.location.reload();
+      this.handleModal()
+      this.handleSale()
     } catch (error) {
       console.log(error)
     }
   }
 
   handleSale = () => {
-    console.log('venda efetuada com sucesso!')
+    message.info('Venda efetuada!', 2, () => this.setState({ redirect: true }))
   }
 
   handleModal = () => {
     const visible = !this.state.visible
-    return this.setState({ visible });
+    return this.setState({ visible })
   }
 
   renderDetail = () => {
-    const { data, visible, priceSelected } = this.state
+    const { data, visible, priceSelected, redirect } = this.state
     const { product, report, summary } = data
-    const orderedReport = report.sort(
-      (a, b) => (a.value > b.value ? 1 : -1)
-    )
+    const orderedReport = report.sort((a, b) => (a.value > b.value ? 1 : -1))
     return (
-      <DetailProductContainer
-        product={product}
-        priceSelected={priceSelected}
-        handleSellConfirmation={this.handleSellConfirmation}
-        handleModal={this.handleModal}
-        onChange={this.onChange}
-        visible={visible}
-        summary={summary}
-        report={orderedReport}
-      />
+      <div>
+        {redirect ? (
+          <Redirect to="/sales-history" />
+        ) : (
+          <DetailProductContainer
+            product={product}
+            priceSelected={priceSelected}
+            handleSellConfirmation={this.handleSellConfirmation}
+            handleModal={this.handleModal}
+            onChange={this.onChange}
+            visible={visible}
+            summary={summary}
+            report={orderedReport}
+          />
+        )}
+      </div>
     )
   }
 
