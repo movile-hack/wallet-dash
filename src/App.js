@@ -31,7 +31,7 @@ class App extends Component {
             <span className="firstNameLogo">Boa</span>
             <span className="secondNameLogo">Compra</span>
           </h1>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" >
             <Menu.Item key="1">
               <Link to="/product/list">
                 <Icon type="dollar" />
@@ -54,8 +54,8 @@ class App extends Component {
           }}
           >
           <Switch>
-            <Route path="/product" component={Product} />
             <Route exact path="/sales-history" component={SalesHistory} />
+            <Route path="/product" component={Product} />
             <Redirect to="/sales-history" />
           </Switch>
           </Content>
